@@ -1,15 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Menu, X, Gamepad2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const navItems = [
-    { name: "Home", href: "#" },
-    { name: "Team", href: "#team" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "Team", href: "/#team" },
+    { name: "About", href: "/#about" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -20,8 +22,13 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-wrap items-center justify-between mx-auto p-4">
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse z-50">
-                        <div className="p-2 bg-violet-600 rounded-lg shadow-[0_0_15px_rgba(124,58,237,0.5)]">
-                            <Gamepad2 className="w-6 h-6 text-white" />
+                        <div className="relative w-10 h-10 rounded-lg overflow-hidden shadow-[0_0_15px_rgba(124,58,237,0.5)]">
+                            <Image
+                                src="/zenith/logo.jpg"
+                                alt="Zenith E-Sport Logo"
+                                fill
+                                className="object-cover"
+                            />
                         </div>
                         <span className="self-center text-2xl font-semibold whitespace-nowrap text-white tracking-wider uppercase font-sans">
                             Zenith <span className="text-violet-500">E-Sport</span>

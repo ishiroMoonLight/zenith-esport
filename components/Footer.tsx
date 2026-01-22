@@ -1,7 +1,8 @@
 "use client";
 
-import { Twitter, Twitch, Youtube, Instagram, Gamepad2 } from "lucide-react";
+import { Twitter, Twitch, Youtube, Instagram } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -10,8 +11,13 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                     {/* Brand */}
                     <div className="flex items-center space-x-2">
-                        <div className="p-2 bg-violet-600 rounded-lg">
-                            <Gamepad2 className="w-5 h-5 text-white" />
+                        <div className="relative w-10 h-10 rounded-lg overflow-hidden">
+                            <Image
+                                src="/zenith/logo.jpg"
+                                alt="Zenith E-Sport Logo"
+                                fill
+                                className="object-cover"
+                            />
                         </div>
                         <span className="text-xl font-bold text-white tracking-wider uppercase">
                             Zenith <span className="text-violet-500">E-Sport</span>
@@ -20,10 +26,11 @@ export default function Footer() {
 
                     {/* Links */}
                     <div className="flex gap-8 text-sm font-medium">
-                        <Link href="#" className="hover:text-violet-400 transition-colors">Home</Link>
-                        <Link href="#team" className="hover:text-violet-400 transition-colors">Team</Link>
-                        <Link href="#about" className="hover:text-violet-400 transition-colors">About</Link>
-                        <Link href="#" className="hover:text-violet-400 transition-colors">Contact</Link>
+                        <Link href="/" className="hover:text-violet-400 transition-colors">Home</Link>
+                        <Link href="/#team" className="hover:text-violet-400 transition-colors">Team</Link>
+                        <Link href="/blog" className="hover:text-violet-400 transition-colors">Blog</Link>
+                        <Link href="/#about" className="hover:text-violet-400 transition-colors">About</Link>
+                        <Link href="/#contact" className="hover:text-violet-400 transition-colors">Contact</Link>
                     </div>
 
                     {/* Socials */}
