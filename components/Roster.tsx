@@ -102,7 +102,7 @@ export default function Roster() {
                     effect="coverflow"
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView="auto"
+                    slidesPerView={1}
                     coverflowEffect={{
                         rotate: 50,
                         stretch: 0,
@@ -122,10 +122,6 @@ export default function Roster() {
                     loop={true}
                     className="mySwiper pb-16"
                     breakpoints={{
-                        320: {
-                            slidesPerView: 1,
-                            spaceBetween: 20,
-                        },
                         768: {
                             slidesPerView: 2,
                             spaceBetween: 30,
@@ -135,9 +131,10 @@ export default function Roster() {
                             spaceBetween: 40,
                         },
                     }}
+                    spaceBetween={20}
                 >
                     {players.map((player, index) => (
-                        <SwiperSlide key={player.id} className="!w-[350px]">
+                        <SwiperSlide key={player.id} className="!h-auto">
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
@@ -146,15 +143,16 @@ export default function Roster() {
                             >
                                 {/* Image Swiper for Player and Characters */}
                                 <div className="relative h-80 w-full overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent z-10"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent z-10 pointer-events-none"></div>
 
                                     <Swiper
                                         modules={[Pagination]}
                                         pagination={{
                                             clickable: true,
+                                            el: `.pagination-${player.id}`,
                                         }}
                                         loop={true}
-                                        className="h-full"
+                                        className="h-full player-image-swiper"
                                     >
                                         {/* Player Image Slide */}
                                         <SwiperSlide>
@@ -188,6 +186,8 @@ export default function Roster() {
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
+                                    {/* Custom pagination for this player's swiper */}
+                                    <div className={`pagination-${player.id} absolute bottom-2 left-0 right-0 z-30 flex justify-center gap-2`}></div>
                                 </div>
 
                                 <div className="absolute bottom-0 left-0 w-full p-6 z-20">
@@ -225,6 +225,8 @@ export default function Roster() {
                 .swiper-pagination-bullet {
                     background: rgba(139, 92, 246, 0.5);
                     opacity: 1;
+                    width: 8px;
+                    height: 8px;
                 }
                 .swiper-pagination-bullet-active {
                     background: rgb(139, 92, 246);
@@ -236,6 +238,14 @@ export default function Roster() {
                 .swiper-button-next:after,
                 .swiper-button-prev:after {
                     font-size: 24px;
+                }
+                .player-image-swiper .swiper-slide {
+                    height: 100%;
+                }
+                .player-image-swiper img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
                 }
             `}</style>
         </section>
