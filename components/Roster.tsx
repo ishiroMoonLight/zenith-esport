@@ -8,73 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
-
-const players = [
-    {
-        id: 1,
-        gamertag: "VoidWalker",
-        name: "Alex Mercer",
-        mains: [
-            {
-                character: "Kazuya Mishima",
-                characterImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2600&auto=format&fit=crop"
-            },
-            {
-                character: "Devil Jin",
-                characterImage: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2600&auto=format&fit=crop"
-            }
-        ],
-        rank: "God of Destruction",
-        playerImage: "https://images.unsplash.com/photo-1560253023-3ec5d502959f?q=80&w=2600&auto=format&fit=crop",
-        socials: { twitter: "#", twitch: "#" }
-    },
-    {
-        id: 2,
-        gamertag: "NeonStrike",
-        name: "Sarah Lin",
-        mains: [
-            {
-                character: "Reina",
-                characterImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2574&auto=format&fit=crop"
-            }
-        ],
-        rank: "Tekken God Supreme",
-        playerImage: "https://images.unsplash.com/photo-1615109398623-88346a601842?q=80&w=2574&auto=format&fit=crop",
-        socials: { twitter: "#", youtube: "#" }
-    },
-    {
-        id: 3,
-        gamertag: "IronFist",
-        name: "Marcus King",
-        mains: [
-            {
-                character: "King",
-                characterImage: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=2680&auto=format&fit=crop"
-            },
-            {
-                character: "Armor King",
-                characterImage: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2680&auto=format&fit=crop"
-            }
-        ],
-        rank: "Tekken God Omega",
-        playerImage: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2680&auto=format&fit=crop",
-        socials: { twitter: "#", twitch: "#", instagram: "#" }
-    },
-    {
-        id: 4,
-        gamertag: "ShadowStep",
-        name: "Kenji Sato",
-        mains: [
-            {
-                character: "Jin Kazama",
-                characterImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2574&auto=format&fit=crop"
-            }
-        ],
-        rank: "Bushin",
-        playerImage: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=2574&auto=format&fit=crop",
-        socials: { twitter: "#", twitch: "#" }
-    }
-];
+import { players } from "../public/zenith/players/data.js";
 
 export default function Roster() {
     return (
