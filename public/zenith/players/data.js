@@ -108,7 +108,7 @@ export const players = [
     {
         id: 8,
         gamertag: "Crazyllie",
-        name: "Orélie",
+        name: "Oréllie",
         mains: [
             {
                 character: "Reina",
