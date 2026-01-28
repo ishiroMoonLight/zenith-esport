@@ -6,11 +6,11 @@ export const players = [
         mains: [
             {
                 character: "Anna Williams",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/anna-williams"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/rR2TvH3SF60xbuVz3Woe"
             },
             {
                 character: "Kuma",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/kuma"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/mDNhdtnST0mZ2k9MZ8Bn"
             }
         ],
         rank: "Tekken Emperor",
@@ -24,7 +24,7 @@ export const players = [
         mains: [
             {
                 character: "Armor King",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/armor-king"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/cmd3lrl1zbt4507lhk500rmo0"
             }
         ],
         rank: "Tekken God Supreme",
@@ -38,7 +38,7 @@ export const players = [
         mains: [
             {
                 character: "Leo",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/leo"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/ALvLmqr5T3q7uDUbaabH"
             },
         ],
         rank: "Tekken God Of Destruction I",
@@ -52,7 +52,7 @@ export const players = [
         mains: [
             {
                 character: "Eddy Gordo",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/eddy-gordo"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/gV0WQPOSzmJOPFsy8vMZ"
             }
         ],
         rank: "Tekken King",
@@ -66,7 +66,7 @@ export const players = [
         mains: [
             {
                 character: "Lidia Sobieska",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/lidia-sobieska"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/7dz6ir6uTsmhc0IIQXGE"
             }
         ],
         rank: "Tekken King",
@@ -80,11 +80,11 @@ export const players = [
         mains: [
             {
                 character: "Kazuya Mishima",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/kazuya-mishima"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/DEBVlLC6QiSQhEXHSKr4"
             },
             {
                 character: "Lars Alexandersson",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/lars-alexandersson"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/BmOJjhjzSs6vaukPQPjE"
             }
         ],
         rank: "Tekken King",
@@ -98,7 +98,7 @@ export const players = [
         mains: [
             {
                 character: "Lars Alexandersson",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/lars-alexandersson"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/BmOJjhjzSs6vaukPQPjE"
             }
         ],
         rank: "Tekken King",
@@ -107,12 +107,12 @@ export const players = [
     },
     {
         id: 8,
-        gamertag: "Aiglesse",
+        gamertag: "Crazyllie",
         name: "Orélie",
         mains: [
             {
-                character: "Leo",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/leo"
+                character: "Reina",
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/TfCpIKWORbmnzyPWwqkK"
             }
         ],
         rank: "Community Manager",
@@ -126,7 +126,7 @@ export const players = [
         mains: [
             {
                 character: "Kazuya Mishima",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/kazuya-mishima"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/DEBVlLC6QiSQhEXHSKr4"
             }
         ],
         rank: "Tekken King",
@@ -138,10 +138,6 @@ export const players = [
         gamertag: "Zzz World zzz",
         name: "Zo Annye",
         mains: [
-            {
-                character: "Still learning",
-                characterImage: "#"
-            }
         ],
         rank: "Tekken King",
         playerImage: "/zenith/players/zzz.jpg",
@@ -154,11 +150,11 @@ export const players = [
         mains: [
             {
                 character: "Jin Kazama",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/jin-kazama"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/WEyh34giTZmCc5nOCi6p"
             },
             {
                 character: "Leo",
-                characterImage: "https://en.bandainamcoent.eu/tekken/tekken-8/characters/leo"
+                characterImage: "https://us-east-1-bandai.graphassets.com/AXzioIclSWilEjFtsMJPwz/ALvLmqr5T3q7uDUbaabH"
             }
         ],
         rank: "Tekken King",
