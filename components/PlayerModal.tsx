@@ -71,16 +71,18 @@ export default function PlayerModal({ isOpen, onClose, player }: PlayerModalProp
                         </button>
 
                         {/* Left Side: Player Image */}
-                        <div className="md:w-1/2 relative h-64 md:h-auto min-h-[300px] overflow-hidden group">
+                        <div className="md:w-1/2 relative h-64 md:h-auto min-h-[400px] overflow-hidden group">
                             <div className="absolute inset-0 bg-violet-600/20 mix-blend-overlay z-10"></div>
                             {/* Gradient Overlay for Text Visibility */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent z-10 md:hidden"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent z-10 md:hidden"></div>
 
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                            <Image
                                 src={player.playerImage}
                                 alt={player.gamertag}
-                                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                                width={300}
+                                height={300}
+                                className="w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                             />
                         </div>
 
