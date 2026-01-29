@@ -93,7 +93,7 @@ export const players = [
     },
     {
         id: 7,
-        gamertag: "One Newman",
+        gamertag: "OneNewman",
         name: "Juan Christian",
         mains: [
             {
@@ -136,7 +136,7 @@ export const players = [
     {
         id: 10,
         gamertag: "Zzz World zzz",
-        name: "Zo Annye",
+        name: "Zo-Annye",
         mains: [
         ],
         rank: "Tekken King",
