@@ -1,9 +1,5 @@
-import { PlayerForm } from "@/components/admin/PlayerForm";
+import CreatePlayerPageView from "@/presentation/pages/admin/CreatePlayerPageView";
 
 export default function CreatePlayerPage() {
-    return (
-        <div className="mx-auto max-w-5xl">
-            <PlayerForm />
-        </div>
-    );
+    return <CreatePlayerPageView />;
 }

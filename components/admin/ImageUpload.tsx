@@ -1,26 +1,38 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import { UploadCloud, X, Image as ImageIcon } from "lucide-react";
+import { UploadCloud, X } from "lucide-react";
 
 interface ImageUploadProps {
-    value?: string;
-    onChange: (value: string) => void;
+    value?: string | File | null;
+    onChange: (file: File | null) => void;
     label?: string;
 }
 
 export function ImageUpload({ value, onChange, label = "Upload Image" }: ImageUploadProps) {
-    const [preview, setPreview] = useState(value);
+    const [preview, setPreview] = useState<string | null>(null);
+
+    // Initialize preview from value if it's a string (URL) or File
+    useEffect(() => {
+        if (!value) {
+            setPreview(null);
+            return;
+        }
+
+        if (typeof value === "string") {
+            setPreview(value);
+        } else if (value instanceof File) {
+            const objectUrl = URL.createObjectURL(value);
+            setPreview(objectUrl);
+            return () => URL.revokeObjectURL(objectUrl); // cleanup
+        }
+    }, [value]);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
         if (file) {
-            // In a real app, we would upload to server/S3 here.
-            // For this prototype, we create a local object URL to show it works.
-            const objectUrl = URL.createObjectURL(file);
-            setPreview(objectUrl);
-            onChange(objectUrl); // Pass back the URL (or file object in real app)
+            onChange(file);
         }
     }, [onChange]);
 
@@ -34,8 +46,7 @@ export function ImageUpload({ value, onChange, label = "Upload Image" }: ImageUp
 
     const clearImage = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setPreview("");
-        onChange("");
+        onChange(null);
     };
 
     return (
@@ -52,20 +63,20 @@ export function ImageUpload({ value, onChange, label = "Upload Image" }: ImageUp
                 <input {...getInputProps()} />
 
                 {preview ? (
-                    <div className="relative h-full w-full overflow-hidden rounded-lg">
+                    <div className="relative h-full w-full overflow-hidden rounded-lg min-h-[200px]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={preview}
                             alt="Preview"
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-cover absolute inset-0"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity hover:opacity-100">
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity hover:opacity-100 z-10">
                             <p className="text-white font-medium">Click or Drop to change</p>
                         </div>
                         <button
                             type="button"
                             onClick={clearImage}
-                            className="absolute right-2 top-2 rounded-full bg-slate-900/80 p-1.5 text-white hover:bg-red-500 transition-colors"
+                            className="absolute right-2 top-2 z-20 rounded-full bg-slate-900/80 p-1.5 text-white hover:bg-red-500 transition-colors"
                         >
                             <X className="h-4 w-4" />
                         </button>
@@ -78,7 +89,7 @@ export function ImageUpload({ value, onChange, label = "Upload Image" }: ImageUp
                         <p className="mb-2 text-sm font-semibold text-white">
                             {isDragActive ? "Drop it here!" : "Click or drag image to upload"}
                         </p>
-                        <p className="text-xs text-slate-500">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                        <p className="text-xs text-slate-500">SVG, PNG, JPG or WEBP (max. 5MB)</p>
                     </div>
                 )}
             </div>

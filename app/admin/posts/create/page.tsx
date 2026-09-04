@@ -1,9 +1,5 @@
-import { PostForm } from "@/components/admin/PostForm";
+import CreatePostPageView from "@/presentation/pages/admin/CreatePostPageView";
 
 export default function CreatePostPage() {
-    return (
-        <div className="mx-auto max-w-5xl">
-            <PostForm />
-        </div>
-    );
+    return <CreatePostPageView />;
 }

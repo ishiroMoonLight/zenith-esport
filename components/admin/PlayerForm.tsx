@@ -2,63 +2,75 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Save, ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Save, ArrowLeft, Loader2 } from "lucide-react";
 import { ImageUpload } from "./ImageUpload";
+import { createPlayerUseCase, updatePlayerUseCase } from "@/infrastructure/di/container";
 
-// Minimal Player Type for the form
-interface PlayerData {
-    gamertag: string;
-    name: string;
-    rank: string;
-    playerImage: string;
-    socials: {
-        twitter?: string;
-        twitch?: string;
-        youtube?: string;
-        instagram?: string;
-    }
+interface PlayerFormData {
+    nom: string;
+    prenom: string;
+    pseudo: string;
+    playerImage?: string | null;
 }
 
 interface PlayerFormProps {
-    initialData?: Partial<PlayerData>;
+    initialData?: Partial<PlayerFormData>;
+    playerId?: string;
     isEditing?: boolean;
 }
 
-export function PlayerForm({ initialData, isEditing = false }: PlayerFormProps) {
-    const [formData, setFormData] = useState<PlayerData>({
-        gamertag: initialData?.gamertag || "",
-        name: initialData?.name || "",
-        rank: initialData?.rank || "Tekken King",
-        playerImage: initialData?.playerImage || "",
-        socials: {
-            twitter: initialData?.socials?.twitter || "",
-            twitch: initialData?.socials?.twitch || "",
-            youtube: initialData?.socials?.youtube || "",
-            instagram: initialData?.socials?.instagram || "",
-        }
+export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerFormProps) {
+    const router = useRouter();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const [formData, setFormData] = useState({
+        nom: initialData?.nom || "",
+        prenom: initialData?.prenom || "",
+        pseudo: initialData?.pseudo || "",
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const [existingImageUrl, setExistingImageUrl] = useState<string | null>(initialData?.playerImage || null);
+    const [newImage, setNewImage] = useState<File | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSocialChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            socials: { ...prev.socials, [name]: value }
-        }));
+    const handleImageChange = (file: File | null) => {
+        setNewImage(file);
     };
 
-    const handleImageChange = (value: string) => {
-        setFormData((prev) => ({ ...prev, playerImage: value }));
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Player Form submitted:", formData);
-        alert(`Player ${isEditing ? "updated" : "created"} (Simulated)!`);
+        setIsSubmitting(true);
+        setError(null);
+
+        try {
+            if (isEditing && playerId) {
+                await updatePlayerUseCase.execute(playerId, {
+                    nom: formData.nom,
+                    prenom: formData.prenom,
+                    pseudo: formData.pseudo,
+                    image: newImage || undefined,
+                });
+            } else {
+                await createPlayerUseCase.execute({
+                    nom: formData.nom,
+                    prenom: formData.prenom,
+                    pseudo: formData.pseudo,
+                    image: newImage || undefined,
+                });
+            }
+            router.push("/admin/players");
+            router.refresh();
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Une erreur est survenue.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -78,12 +90,19 @@ export function PlayerForm({ initialData, isEditing = false }: PlayerFormProps) 
                 </div>
                 <button
                     type="submit"
-                    className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-violet-300"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-violet-300 disabled:opacity-50"
                 >
-                    <Save className="mr-2 h-4 w-4" />
+                    {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                     Save Player
                 </button>
             </div>
+
+            {error && (
+                <div className="rounded-lg bg-red-500/10 border border-red-500/20 p-4 text-red-400">
+                    {error}
+                </div>
+            )}
 
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 {/* Main Content Column */}
@@ -93,93 +112,48 @@ export function PlayerForm({ initialData, isEditing = false }: PlayerFormProps) 
                         <h3 className="text-lg font-semibold text-white mb-4">Player Details</h3>
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div className="space-y-2">
-                                <label htmlFor="gamertag" className="block text-sm font-medium text-slate-300">
-                                    Gamertag
+                                <label htmlFor="pseudo" className="block text-sm font-medium text-slate-300">
+                                    Gamertag / Pseudo
                                 </label>
                                 <input
                                     type="text"
-                                    id="gamertag"
-                                    name="gamertag"
+                                    id="pseudo"
+                                    name="pseudo"
                                     required
-                                    value={formData.gamertag}
+                                    value={formData.pseudo}
                                     onChange={handleChange}
                                     className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
                                     placeholder="e.g. Ishiro"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label htmlFor="name" className="block text-sm font-medium text-slate-300">
-                                    Real Name
+                                <label htmlFor="prenom" className="block text-sm font-medium text-slate-300">
+                                    First Name
                                 </label>
                                 <input
                                     type="text"
-                                    id="name"
-                                    name="name"
-                                    value={formData.name}
+                                    id="prenom"
+                                    name="prenom"
+                                    required
+                                    value={formData.prenom}
                                     onChange={handleChange}
                                     className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                    placeholder="e.g. Reynolds"
+                                    placeholder="John"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label htmlFor="rank" className="block text-sm font-medium text-slate-300">
-                                    Rank
+                                <label htmlFor="nom" className="block text-sm font-medium text-slate-300">
+                                    Last Name
                                 </label>
-                                <select
-                                    id="rank"
-                                    name="rank"
-                                    value={formData.rank}
+                                <input
+                                    type="text"
+                                    id="nom"
+                                    name="nom"
+                                    required
+                                    value={formData.nom}
                                     onChange={handleChange}
-                                    className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white focus:border-violet-500 focus:ring-violet-500"
-                                >
-                                    <option value="Tekken God Supreme">Tekken God Supreme</option>
-                                    <option value="Tekken King">Tekken King</option>
-                                    <option value="Tekken Emperor">Tekken Emperor</option>
-                                    <option value="God of Destruction">God of Destruction</option>
-                                    <option value="Community Manager">Community Manager</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Socials */}
-                    <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-6 space-y-6">
-                        <h3 className="text-lg font-semibold text-white mb-4">Social Media</h3>
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <div className="space-y-2">
-                                <label htmlFor="twitter" className="block text-sm font-medium text-slate-300">Twitter (X)</label>
-                                <input
-                                    type="text" id="twitter" name="twitter"
-                                    value={formData.socials.twitter} onChange={handleSocialChange}
                                     className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                    placeholder="#"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label htmlFor="twitch" className="block text-sm font-medium text-slate-300">Twitch</label>
-                                <input
-                                    type="text" id="twitch" name="twitch"
-                                    value={formData.socials.twitch} onChange={handleSocialChange}
-                                    className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                    placeholder="#"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label htmlFor="youtube" className="block text-sm font-medium text-slate-300">YouTube</label>
-                                <input
-                                    type="text" id="youtube" name="youtube"
-                                    value={formData.socials.youtube} onChange={handleSocialChange}
-                                    className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                    placeholder="#"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label htmlFor="instagram" className="block text-sm font-medium text-slate-300">Instagram</label>
-                                <input
-                                    type="text" id="instagram" name="instagram"
-                                    value={formData.socials.instagram} onChange={handleSocialChange}
-                                    className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                    placeholder="#"
+                                    placeholder="Doe"
                                 />
                             </div>
                         </div>
@@ -191,25 +165,22 @@ export function PlayerForm({ initialData, isEditing = false }: PlayerFormProps) 
                     {/* Player Photo */}
                     <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-4 space-y-4">
                         <h3 className="font-semibold text-white">Player Photo</h3>
+                        
+                        {existingImageUrl && !newImage && (
+                            <div className="space-y-2 mb-4">
+                                <label className="block text-xs font-medium text-slate-400">Image actuelle</label>
+                                <div className="relative rounded overflow-hidden h-32 border border-slate-700 w-32 mx-auto">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={existingImageUrl.startsWith('http') ? existingImageUrl : `http://localhost:4000${existingImageUrl}`} alt="Player" className="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                        )}
+
                         <ImageUpload
-                            value={formData.playerImage}
+                            value={newImage}
                             onChange={handleImageChange}
-                            label="Profile Picture"
+                            label={existingImageUrl ? "Remplacer l'image" : "Profile Picture"}
                         />
-                        <div className="space-y-2 pt-2 border-t border-slate-800">
-                            <label htmlFor="playerImage" className="block text-xs font-medium text-slate-500">
-                                Or enter URL manually
-                            </label>
-                            <input
-                                type="text"
-                                id="playerImage"
-                                name="playerImage"
-                                value={formData.playerImage} // Use main field for manual input too
-                                onChange={handleChange}
-                                className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2 text-xs text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                placeholder="/zenith/players/..."
-                            />
-                        </div>
                     </div>
                 </div>
             </div>
