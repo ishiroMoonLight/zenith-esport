@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Calendar, Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 /**
  * Vue de la page Blog — liste complète des articles depuis l'API.
@@ -80,6 +81,7 @@ export default function BlogPageView() {
                           src={post.image}
                           alt={post.title}
                           fill
+                          unoptimized
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       ) : (

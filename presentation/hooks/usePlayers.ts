@@ -32,3 +32,8 @@ export function usePlayers() {
 
   return { players, loading, error, refetch };
 }
+
+/**
+ * Alias de usePlayers pour conformité d'appellation.
+ */
+export const usePlayer = usePlayers;
