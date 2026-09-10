@@ -2,17 +2,19 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Twitter, Twitch, Youtube, Instagram } from "lucide-react";
+import { Twitter, Twitch, Youtube, Instagram, Loader2, Users } from "lucide-react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
-import { players } from "../public/zenith/players/data.js";
+import Image from "next/image";
+import { usePlayer } from "@/presentation/hooks/usePlayers";
 import PlayerModal, { Player } from "./PlayerModal";
 
 export default function Roster() {
+    const { players, loading, error } = usePlayer();
     const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,7 +25,6 @@ export default function Roster() {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        // Optional: clear selected player after animation, but keeping it for now serves the exit animation well if we had one on the content itself dependent on data
     };
 
     return (
@@ -45,103 +46,139 @@ export default function Roster() {
                     <div className="w-24 h-1 bg-violet-600 mx-auto rounded-full"></div>
                 </motion.div>
 
-                {/* Automatic Swiper Carousel for Players */}
-                <Swiper
-                    modules={[Autoplay, Pagination, Navigation, EffectCoverflow]}
-                    effect="coverflow"
-                    grabCursor={true}
-                    centeredSlides={true}
-                    slidesPerView={1}
-                    coverflowEffect={{
-                        rotate: 50,
-                        stretch: 0,
-                        depth: 100,
-                        modifier: 1,
-                        slideShadows: true,
-                    }}
-                    autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    }}
-                    pagination={{
-                        clickable: true,
-                        dynamicBullets: true,
-                    }}
-                    navigation={true}
-                    loop={true}
-                    className="mySwiper pb-16"
-                    breakpoints={{
-                        768: {
-                            slidesPerView: 2,
-                            spaceBetween: 30,
-                        },
-                        1024: {
-                            slidesPerView: 3,
-                            spaceBetween: 40,
-                        },
-                    }}
-                    spaceBetween={20}
-                >
-                    {players.map((player, index) => (
-                        <SwiperSlide key={player.id} className="!h-auto">
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: index * 0.1, duration: 0.5 }}
-                                className="group relative bg-[#0f172a] rounded-xl overflow-hidden border border-white/5 hover:border-violet-500/50 transition-colors duration-300 cursor-pointer"
-                                onClickCapture={() => handlePlayerClick(player)}
-                            >
-                                {/* Image Swiper for Player and Characters */}
-                                <div className="relative h-80 w-full overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent z-10 pointer-events-none"></div>
+                {/* Loading State */}
+                {loading && (
+                    <div className="flex flex-col justify-center items-center py-20">
+                        <Loader2 className="h-12 w-12 animate-spin text-violet-500 mb-4" />
+                        <p className="text-slate-400 text-sm">Chargement du roster...</p>
+                    </div>
+                )}
 
-                                    {/* Hover Overlay with Icon */}
-                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-center justify-center pointer-events-none">
-                                        <div className="bg-violet-600/90 p-3 rounded-full text-white transform scale-0 group-hover:scale-100 transition-transform duration-300">
-                                            <span className="font-bold text-sm">Voir Profil</span>
+                {/* Error State */}
+                {error && !loading && (
+                    <div className="flex flex-col justify-center items-center py-16 text-center">
+                        <p className="text-red-400 mb-2">{error}</p>
+                        <p className="text-slate-500 text-xs">Vérifiez que le serveur backend est bien démarré.</p>
+                    </div>
+                )}
+
+                {/* Empty State */}
+                {!loading && !error && players.length === 0 && (
+                    <div className="flex flex-col justify-center items-center py-20 text-center">
+                        <Users className="h-16 w-16 text-slate-700 mb-4" />
+                        <p className="text-slate-400 text-lg">Aucun joueur dans le roster pour le moment.</p>
+                    </div>
+                )}
+
+                {/* Swiper Carousel for Players */}
+                {!loading && !error && players.length > 0 && (
+                    <Swiper
+                        modules={[Autoplay, Pagination, Navigation, EffectCoverflow]}
+                        effect="coverflow"
+                        grabCursor={true}
+                        centeredSlides={true}
+                        slidesPerView={1}
+                        coverflowEffect={{
+                            rotate: 50,
+                            stretch: 0,
+                            depth: 100,
+                            modifier: 1,
+                            slideShadows: true,
+                        }}
+                        autoplay={{
+                            delay: 3500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                            dynamicBullets: true,
+                        }}
+                        navigation={true}
+                        loop={players.length >= 3}
+                        className="mySwiper pb-16"
+                        breakpoints={{
+                            768: {
+                                slidesPerView: Math.min(players.length, 2),
+                                spaceBetween: 30,
+                            },
+                            1024: {
+                                slidesPerView: Math.min(players.length, 3),
+                                spaceBetween: 40,
+                            },
+                        }}
+                        spaceBetween={20}
+                    >
+                        {players.map((player, index) => {
+                            const playerImg = player.playerImage || player.image || "/zenith/players/placeholder.jpg";
+                            const mainsText = player.mains && player.mains.length > 0
+                                ? player.mains.map(m => m.character).join(", ")
+                                : "Zenith Athlete";
+                            const rankText = player.rank || "Active Member";
+
+                            return (
+                                <SwiperSlide key={player.id} className="!h-auto">
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: index * 0.1, duration: 0.5 }}
+                                        className="group relative bg-[#0f172a] rounded-xl overflow-hidden border border-white/5 hover:border-violet-500/50 transition-colors duration-300 cursor-pointer"
+                                        onClickCapture={() => handlePlayerClick(player as unknown as Player)}
+                                    >
+                                        {/* Player Image */}
+                                        <div className="relative h-80 w-full overflow-hidden bg-slate-900">
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent z-10 pointer-events-none"></div>
+
+                                            {/* Hover Overlay with Icon */}
+                                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-center justify-center pointer-events-none">
+                                                <div className="bg-violet-600/90 p-3 rounded-full text-white transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                                                    <span className="font-bold text-sm">Voir Profil</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="relative h-full w-full">
+                                                <Image
+                                                    src={playerImg}
+                                                    alt={player.gamertag || player.pseudo}
+                                                    fill
+                                                    unoptimized
+                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className="relative h-full w-full">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img
-                                            src={player.playerImage}
-                                            alt={player.gamertag}
-                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                                        />
-                                    </div>
+                                        <div className="absolute bottom-0 left-0 w-full p-6 z-20">
+                                            <span className="text-violet-400 text-xs font-bold tracking-wider uppercase mb-1 block">
+                                                {player.name || `${player.prenom} ${player.nom}`}
+                                            </span>
+                                            <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-violet-300 transition-colors">
+                                                {player.gamertag || player.pseudo}
+                                            </h3>
+                                            <p className="text-sm text-gray-400 mb-1">
+                                                Mains: <span className="text-white font-medium">{mainsText}</span>
+                                            </p>
+                                            <p className="text-xs text-violet-300 mb-4">{rankText}</p>
 
-                                </div>
-
-                                <div className="absolute bottom-0 left-0 w-full p-6 z-20">
-                                    <span className="text-violet-400 text-xs font-bold tracking-wider uppercase mb-1 block">
-                                        {player.name}
-                                    </span>
-                                    <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-violet-300 transition-colors">{player.gamertag}</h3>
-                                    <p className="text-sm text-gray-400 mb-1">
-                                        Mains: <span className="text-white font-medium">{player.mains.length > 0 ? player.mains.map(m => m.character).join(", ") : "Still learning"}</span>
-                                    </p>
-                                    <p className="text-xs text-violet-300 mb-4">{player.rank}</p>
-
-                                    <div className="flex gap-3 pt-4 border-t border-white/10" onClickCapture={(e) => e.stopPropagation()}>
-                                        {player.socials.twitter && (
-                                            <a href={player.socials.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-sky-500 transition-colors"><Twitter size={18} /></a>
-                                        )}
-                                        {player.socials.twitch && (
-                                            <a href={player.socials.twitch} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-violet-500 transition-colors"><Twitch size={18} /></a>
-                                        )}
-                                        {player.socials.youtube && (
-                                            <a href={player.socials.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-500 transition-colors"><Youtube size={18} /></a>
-                                        )}
-                                        {player.socials.instagram && (
-                                            <a href={player.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-500 transition-colors"><Instagram size={18} /></a>
-                                        )}
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                                            <div className="flex gap-3 pt-4 border-t border-white/10" onClickCapture={(e) => e.stopPropagation()}>
+                                                {player.socials?.twitter && (
+                                                    <a href={player.socials.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-sky-500 transition-colors"><Twitter size={18} /></a>
+                                                )}
+                                                {player.socials?.twitch && (
+                                                    <a href={player.socials.twitch} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-violet-500 transition-colors"><Twitch size={18} /></a>
+                                                )}
+                                                {player.socials?.youtube && (
+                                                    <a href={player.socials.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-500 transition-colors"><Youtube size={18} /></a>
+                                                )}
+                                                {player.socials?.instagram && (
+                                                    <a href={player.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-500 transition-colors"><Instagram size={18} /></a>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </SwiperSlide>
+                            );
+                        })}
+                    </Swiper>
+                )}
 
                 <PlayerModal
                     isOpen={isModalOpen}

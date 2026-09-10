@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Save, ArrowLeft, Loader2, Trash2, X } from "lucide-react";
 import dynamic from "next/dynamic";
-import { ImageUpload } from "./ImageUpload";
+import { MultiImageUpload } from "./MultiImageUpload";
 import { createBlogUseCase, updateBlogUseCase, deleteBlogImageUseCase } from "@/infrastructure/di/container";
 import { BlogImage } from "@/domain/models/Blog";
 
@@ -39,7 +39,7 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
     });
 
     const [existingImages, setExistingImages] = useState<BlogImage[]>(initialData?.images || []);
-    const [newImage, setNewImage] = useState<File | null>(null);
+    const [newImages, setNewImages] = useState<File[]>([]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -48,10 +48,6 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
 
     const handleContentChange = (value: string) => {
         setFormData((prev) => ({ ...prev, contenu: value }));
-    };
-
-    const handleImageChange = (file: File | null) => {
-        setNewImage(file);
     };
 
     const handleDeleteExistingImage = async (imageId: string) => {
@@ -77,14 +73,14 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
                     titre: formData.titre,
                     description: formData.description,
                     contenu: formData.contenu,
-                    images: newImage ? [newImage] : undefined,
+                    images: newImages.length > 0 ? newImages : undefined,
                 });
             } else {
                 await createBlogUseCase.execute({
                     titre: formData.titre,
                     description: formData.description,
                     contenu: formData.contenu,
-                    images: newImage ? [newImage] : [],
+                    images: newImages,
                 });
             }
             router.push("/admin");
@@ -173,24 +169,27 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
 
                 {/* Sidebar Column */}
                 <div className="space-y-6">
-                    {/* Featured Image */}
+                    {/* Images de l'article */}
                     <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-4 space-y-4">
-                        <h3 className="font-semibold text-white">Featured Image</h3>
+                        <h3 className="font-semibold text-white">Images de l&apos;article</h3>
                         
                         {existingImages.length > 0 && (
                             <div className="space-y-2 mb-4">
-                                <label className="block text-xs font-medium text-slate-400">Images existantes</label>
-                                <div className="grid gap-2">
+                                <label className="block text-xs font-medium text-slate-400">
+                                    Images actuelles ({existingImages.length})
+                                </label>
+                                <div className="grid grid-cols-2 gap-2">
                                     {existingImages.map(img => (
-                                        <div key={img.id} className="relative rounded overflow-hidden h-24 border border-slate-700">
+                                        <div key={img.id} className="relative rounded overflow-hidden h-24 border border-slate-700 bg-slate-800">
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img src={img.url} alt="Post image" className="w-full h-full object-cover" />
                                             <button
                                                 type="button"
                                                 onClick={() => handleDeleteExistingImage(img.id)}
-                                                className="absolute top-1 right-1 bg-red-500/80 p-1 rounded hover:bg-red-500 text-white"
+                                                className="absolute top-1 right-1 bg-red-600/90 p-1 rounded-full hover:bg-red-600 text-white shadow"
+                                                title="Supprimer cette image existante"
                                             >
-                                                <X className="w-3 h-3" />
+                                                <X className="w-3.5 h-3.5" />
                                             </button>
                                         </div>
                                     ))}
@@ -198,10 +197,11 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
                             </div>
                         )}
 
-                        <ImageUpload
-                            value={newImage}
-                            onChange={handleImageChange}
-                            label={existingImages.length > 0 ? "Ajouter une nouvelle image" : "Uploader une image"}
+                        <MultiImageUpload
+                            value={newImages}
+                            onChange={setNewImages}
+                            label={existingImages.length > 0 ? "Ajouter d'autres images" : "Glisser-déposer des images"}
+                            maxFiles={10 - existingImages.length}
                         />
                     </div>
                 </div>

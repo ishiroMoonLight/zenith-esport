@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import { blogPosts } from "@/data/blogData";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Calendar, Tag } from "lucide-react";
+import { ArrowRight, Calendar, Loader2, Tag } from "lucide-react";
+import { useBlogs } from "@/presentation/hooks/useBlogs";
 
 export default function BlogSection() {
     // Display only the latest 3 posts
-    const latestPosts = blogPosts.slice(0, 3);
+    // const latestPosts = blogPosts.slice(0, 3);
+    const { blogs, loading, error } = useBlogs();
 
     return (
         <section id="blog" className="py-20 relative overflow-hidden">
@@ -33,23 +35,44 @@ export default function BlogSection() {
                     </p>
                 </motion.div>
 
+                {/* Loading State */}
+                {loading && (
+                    <div className="flex justify-center items-center min-h-[60vh]">
+                        <Loader2 className="h-12 w-12 animate-spin text-violet-500" />
+                    </div>
+                )}
+
+                {/* Error State */}
+                {error && !loading && (
+                    <div className="flex flex-col justify-center items-center min-h-[60vh] text-center px-4">
+                        <p className="text-red-400 text-xl mb-4">{error}</p>
+                    </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {latestPosts.map((post, index) => (
+                    {blogs.slice(0, 3).map((post, index) => (
                         <motion.article
                             key={post.id}
                             initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: index * 0.1 }}
                             className="group relative bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-violet-500/50 transition-colors duration-300"
                         >
                             <Link href={`/blog/${post.slug}`}>
                                 <div className="relative h-48 w-full overflow-hidden">
-                                    <Image
-                                        src={post.image}
-                                        alt={post.title}
-                                        fill
-                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
+                                    {post.image ? (
+                                        <Image
+                                            src={post.image}
+                                            alt={post.title}
+                                            fill
+                                            unoptimized
+                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    ) : (
+                                        <div className="h-full w-full bg-slate-800 flex items-center justify-center">
+                                            <span className="text-slate-600 text-sm">Aucune image</span>
+                                        </div>
+                                    )}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                                     <div className="absolute top-4 left-4">
                                         <span className="px-3 py-1 text-xs font-semibold text-white bg-violet-600 rounded-full shadow-lg">

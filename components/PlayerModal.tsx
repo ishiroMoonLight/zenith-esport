@@ -7,17 +7,18 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 // Define the Player interface based on the data structure
+// Interface Player compatible avec les données statiques et dynamiques du domaine
 export interface Player {
-    id: number;
+    id: number | string;
     gamertag: string;
     name: string;
-    mains: {
+    mains?: {
         character: string;
         characterImage: string;
     }[];
-    rank: string;
+    rank?: string;
     playerImage: string;
-    socials: {
+    socials?: {
         twitter?: string;
         twitch?: string;
         youtube?: string;
@@ -40,6 +41,9 @@ export default function PlayerModal({ isOpen, onClose, player }: PlayerModalProp
     }, []);
 
     if (!mounted || !player) return null;
+
+    const hasMains = player.mains && player.mains.length > 0;
+    const hasSocials = player.socials && (player.socials.twitter || player.socials.twitch || player.socials.youtube || player.socials.instagram);
 
     return createPortal(
         <AnimatePresence>
@@ -71,18 +75,19 @@ export default function PlayerModal({ isOpen, onClose, player }: PlayerModalProp
                         </button>
 
                         {/* Left Side: Player Image */}
-                        <div className="md:w-1/2 relative h-64 md:h-auto min-h-[400px] overflow-hidden group">
+                        <div className="md:w-1/2 relative h-64 md:h-auto min-h-[400px] overflow-hidden group bg-slate-950 flex items-center justify-center">
                             <div className="absolute inset-0 bg-violet-600/20 mix-blend-overlay z-10"></div>
                             {/* Gradient Overlay for Text Visibility */}
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent z-10 md:hidden"></div>
 
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <Image
-                                src={player.playerImage}
+                                src={player.playerImage || "/zenith/players/placeholder.jpg"}
                                 alt={player.gamertag}
-                                width={300}
-                                height={300}
-                                className="w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                                width={400}
+                                height={400}
+                                unoptimized
+                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                             />
                         </div>
 
@@ -104,59 +109,63 @@ export default function PlayerModal({ isOpen, onClose, player }: PlayerModalProp
 
                             <div className="flex items-center gap-2 mb-8 bg-white/5 w-fit px-4 py-2 rounded-lg border border-white/10">
                                 <Trophy className="text-yellow-500" size={20} />
-                                <span className="text-slate-200 font-medium">{player.rank}</span>
+                                <span className="text-slate-200 font-medium">{player.rank || "Zenith Athlete"}</span>
                             </div>
 
                             <div className="space-y-6">
-                                <div>
-                                    <h3 className="text-white/60 text-sm uppercase tracking-wider font-bold mb-3">Mains</h3>
-                                    <div className="flex gap-4 flex-wrap">
-                                        {player.mains.map((main, idx) => (
-                                            <div key={idx} className="flex flex-col items-center">
-                                                <div className="w-16 h-16 rounded-full border-2 border-violet-500/50 overflow-hidden relative group/char">
-                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img
-                                                        src={main.characterImage}
-                                                        alt={main.character}
-                                                        className="object-cover"
-                                                        width={64}
-                                                        height={64}
-                                                    />
-                                                    <div className="absolute inset-0 bg-violet-600/0 group-hover/char:bg-violet-600/20 transition-colors"></div>
+                                {hasMains && (
+                                    <div>
+                                        <h3 className="text-white/60 text-sm uppercase tracking-wider font-bold mb-3">Mains</h3>
+                                        <div className="flex gap-4 flex-wrap">
+                                            {player.mains!.map((main, idx) => (
+                                                <div key={idx} className="flex flex-col items-center">
+                                                    <div className="w-16 h-16 rounded-full border-2 border-violet-500/50 overflow-hidden relative group/char">
+                                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                        <img
+                                                            src={main.characterImage}
+                                                            alt={main.character}
+                                                            className="object-cover"
+                                                            width={64}
+                                                            height={64}
+                                                        />
+                                                        <div className="absolute inset-0 bg-violet-600/0 group-hover/char:bg-violet-600/20 transition-colors"></div>
+                                                    </div>
+                                                    <span className="text-xs text-center text-slate-400 mt-1 max-w-[80px] leading-tight">
+                                                        {main.character}
+                                                    </span>
                                                 </div>
-                                                <span className="text-xs text-center text-slate-400 mt-1 max-w-[80px] leading-tight">
-                                                    {main.character}
-                                                </span>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
+                                )}
 
-                                <div>
-                                    <h3 className="text-white/60 text-sm uppercase tracking-wider font-bold mb-3">Follow</h3>
-                                    <div className="flex gap-4">
-                                        {player.socials.twitter && (
-                                            <a href={player.socials.twitter} className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-[#1DA1F2] transition-all hover:scale-110">
-                                                <Twitter size={20} />
-                                            </a>
-                                        )}
-                                        {player.socials.twitch && (
-                                            <a href={player.socials.twitch} className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-[#9146FF] transition-all hover:scale-110">
-                                                <Twitch size={20} />
-                                            </a>
-                                        )}
-                                        {player.socials.youtube && (
-                                            <a href={player.socials.youtube} className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-[#FF0000] transition-all hover:scale-110">
-                                                <Youtube size={20} />
-                                            </a>
-                                        )}
-                                        {player.socials.instagram && (
-                                            <a href={player.socials.instagram} className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-gradient-to-br hover:from-[#833AB4] hover:via-[#FD1D1D] hover:to-[#FCAF45] transition-all hover:scale-110">
-                                                <Instagram size={20} />
-                                            </a>
-                                        )}
+                                {hasSocials && (
+                                    <div>
+                                        <h3 className="text-white/60 text-sm uppercase tracking-wider font-bold mb-3">Follow</h3>
+                                        <div className="flex gap-4">
+                                            {player.socials?.twitter && (
+                                                <a href={player.socials.twitter} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-[#1DA1F2] transition-all hover:scale-110">
+                                                    <Twitter size={20} />
+                                                </a>
+                                            )}
+                                            {player.socials?.twitch && (
+                                                <a href={player.socials.twitch} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-[#9146FF] transition-all hover:scale-110">
+                                                    <Twitch size={20} />
+                                                </a>
+                                            )}
+                                            {player.socials?.youtube && (
+                                                <a href={player.socials.youtube} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-[#FF0000] transition-all hover:scale-110">
+                                                    <Youtube size={20} />
+                                                </a>
+                                            )}
+                                            {player.socials?.instagram && (
+                                                <a href={player.socials.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-gradient-to-br hover:from-[#833AB4] hover:via-[#FD1D1D] hover:to-[#FCAF45] transition-all hover:scale-110">
+                                                    <Instagram size={20} />
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </motion.div>
