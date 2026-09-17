@@ -28,7 +28,7 @@ export default function Roster() {
     };
 
     return (
-        <section id="team" className="py-24 bg-slate-950 relative overflow-hidden">
+        <section id="roster" className="py-24 bg-slate-950 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-violet-600/10 rounded-full blur-[100px]"></div>
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-violet-900/10 rounded-full blur-[100px]"></div>
@@ -110,10 +110,6 @@ export default function Roster() {
                     >
                         {players.map((player, index) => {
                             const playerImg = player.playerImage || player.image || "/zenith/players/placeholder.jpg";
-                            const mainsText = player.mains && player.mains.length > 0
-                                ? player.mains.map(m => m.character).join(", ")
-                                : "Zenith Athlete";
-                            const rankText = player.rank || "Active Member";
 
                             return (
                                 <SwiperSlide key={player.id} className="!h-auto">
@@ -121,11 +117,11 @@ export default function Roster() {
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         whileInView={{ opacity: 1, scale: 1 }}
                                         transition={{ delay: index * 0.1, duration: 0.5 }}
-                                        className="group relative bg-[#0f172a] rounded-xl overflow-hidden border border-white/5 hover:border-violet-500/50 transition-colors duration-300 cursor-pointer"
+                                        className="group relative bg-[#0f172a] rounded-xl overflow-hidden border border-white/5 hover:border-violet-500/50 transition-colors duration-300 cursor-pointer max-w-sm mx-auto w-full"
                                         onClickCapture={() => handlePlayerClick(player as unknown as Player)}
                                     >
                                         {/* Player Image */}
-                                        <div className="relative h-80 w-full overflow-hidden bg-slate-900">
+                                        <div className="relative h-[340px] w-full overflow-hidden bg-slate-900">
                                             <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent z-10 pointer-events-none"></div>
 
                                             {/* Hover Overlay with Icon */}
@@ -141,7 +137,7 @@ export default function Roster() {
                                                     alt={player.gamertag || player.pseudo}
                                                     fill
                                                     unoptimized
-                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
                                                 />
                                             </div>
                                         </div>
@@ -153,10 +149,7 @@ export default function Roster() {
                                             <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-violet-300 transition-colors">
                                                 {player.gamertag || player.pseudo}
                                             </h3>
-                                            <p className="text-sm text-gray-400 mb-1">
-                                                Mains: <span className="text-white font-medium">{mainsText}</span>
-                                            </p>
-                                            <p className="text-xs text-violet-300 mb-4">{rankText}</p>
+
 
                                             <div className="flex gap-3 pt-4 border-t border-white/10" onClickCapture={(e) => e.stopPropagation()}>
                                                 {player.socials?.twitter && (

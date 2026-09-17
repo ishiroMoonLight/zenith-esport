@@ -30,13 +30,13 @@ export default function Hero() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <button className="px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(124,58,237,0.5)] flex items-center gap-2 group">
+                        <a href="#roster" className="px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(124,58,237,0.5)] flex items-center gap-2 group">
                             Meet the Roster
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-                        </button>
-                        <button className="px-8 py-4 bg-transparent border border-white/20 hover:bg-white/10 text-white font-medium rounded-full transition-all duration-300 backdrop-blur-sm">
-                            Latest Matches
-                        </button>
+                        </a>
+                        <a href="#blog" className="px-8 py-4 bg-transparent border border-white/20 hover:bg-white/10 text-white font-medium rounded-full transition-all duration-300 backdrop-blur-sm">
+                            Latest News
+                        </a>
                     </div>
                 </motion.div>
             </div>

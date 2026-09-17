@@ -64,11 +64,7 @@ export default function AdminLoginPageView() {
                     </button>
                 </form>
 
-                <div className="text-center">
-                    <p className="text-xs text-slate-600">
-                        Hint: The password is <span className="font-mono">zenith</span>
-                    </p>
-                </div>
+
             </div>
         </div>
     );
