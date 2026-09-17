@@ -8,10 +8,10 @@ import Image from "next/image";
 
 const navItems = [
     { name: "Home", href: "/" },
-    { name: "Team", href: "/#team" },
-    { name: "About", href: "/#about" },
+    { name: "Roster", href: "#roster" },
+    { name: "About", href: "#about" },
     { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -53,12 +53,13 @@ export default function Navbar() {
                         <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-white/10 rounded-lg bg-black/80 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
                             {navItems.map((item) => (
                                 <li key={item.name}>
-                                    <Link
+                                    <a
                                         href={item.href}
+                                        onClick={() => setIsOpen(false)}
                                         className="block py-2 px-3 text-gray-300 rounded hover:bg-white/10 md:hover:bg-transparent md:hover:text-violet-400 md:p-0 transition-colors duration-300"
                                     >
                                         {item.name}
-                                    </Link>
+                                    </a>
                                 </li>
                             ))}
                         </ul>

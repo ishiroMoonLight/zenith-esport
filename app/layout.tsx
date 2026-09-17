@@ -12,6 +12,10 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Zenith E-Sport | Tekken Team",
   description: "The official showcase of Zenith E-Sport. Elite Tekken competitors.",
+  icons: {
+    icon: "/zenith/logo.jpg",
+    apple: "/zenith/logo.jpg",
+  },
 };
 
 export default function RootLayout({
