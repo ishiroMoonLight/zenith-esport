@@ -31,15 +31,15 @@ export default function AdminDashboardPageView() {
         <div className="space-y-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-                    <p className="text-slate-400">Manage your blog posts and content.</p>
+                    <h1 className="text-3xl font-bold text-white">Tableau de bord</h1>
+                    <p className="text-slate-400">Gérez vos articles de blog et vos contenus.</p>
                 </div>
                 <Link
                     href="/admin/posts/create"
                     className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-violet-300"
                 >
                     <Plus className="mr-2 h-4 w-4" />
-                    New Post
+                    Nouvel Article
                 </Link>
             </div>
 
@@ -57,8 +57,8 @@ export default function AdminDashboardPageView() {
                     <table className="w-full text-left text-sm text-slate-400">
                         <thead className="bg-slate-900 text-xs uppercase text-slate-400">
                             <tr>
-                                <th scope="col" className="px-6 py-3">Title</th>
-                                <th scope="col" className="px-6 py-3">Category</th>
+                                <th scope="col" className="px-6 py-3">Titre</th>
+                                <th scope="col" className="px-6 py-3">Catégorie</th>
                                 <th scope="col" className="px-6 py-3">Date</th>
                                 <th scope="col" className="px-6 py-3 text-right">Actions</th>
                             </tr>
@@ -82,7 +82,7 @@ export default function AdminDashboardPageView() {
                                                 className="rounded p-2 text-blue-500 hover:bg-blue-500/10"
                                             >
                                                 <Edit2 className="h-4 w-4" />
-                                                <span className="sr-only">Edit</span>
+                                                <span className="sr-only">Modifier</span>
                                             </Link>
                                             <button
                                                 onClick={() => handleDelete(post.id, post.title)}
@@ -93,7 +93,7 @@ export default function AdminDashboardPageView() {
                                                     ? <Loader2 className="h-4 w-4 animate-spin" />
                                                     : <Trash2 className="h-4 w-4" />
                                                 }
-                                                <span className="sr-only">Delete</span>
+                                                <span className="sr-only">Supprimer</span>
                                             </button>
                                         </div>
                                     </td>
@@ -102,7 +102,7 @@ export default function AdminDashboardPageView() {
                             {blogs.length === 0 && (
                                 <tr className="border-b border-slate-800 bg-slate-950">
                                     <td colSpan={4} className="px-6 py-8 text-center text-slate-500">
-                                        No posts found. Start by creating one!
+                                        Aucun article trouvé. Commencez par en créer un !
                                     </td>
                                 </tr>
                             )}

@@ -7,11 +7,10 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Roster", href: "#roster" },
-    { name: "About", href: "#about" },
+    { name: "Accueil", href: "/" },
+    { name: "Roster", href: "/roster" },
+    { name: "À propos", href: "/about" },
     { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -41,7 +40,7 @@ export default function Navbar() {
                             type="button"
                             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-violet-500"
                         >
-                            <span className="sr-only">Open main menu</span>
+                            <span className="sr-only">Ouvrir le menu principal</span>
                             {isOpen ? <X /> : <Menu />}
                         </button>
                     </div>
@@ -53,13 +52,13 @@ export default function Navbar() {
                         <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-white/10 rounded-lg bg-black/80 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
                             {navItems.map((item) => (
                                 <li key={item.name}>
-                                    <a
+                                    <Link
                                         href={item.href}
                                         onClick={() => setIsOpen(false)}
                                         className="block py-2 px-3 text-gray-300 rounded hover:bg-white/10 md:hover:bg-transparent md:hover:text-violet-400 md:p-0 transition-colors duration-300"
                                     >
                                         {item.name}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>

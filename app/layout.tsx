@@ -10,8 +10,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Zenith E-Sport | Tekken Team",
-  description: "The official showcase of Zenith E-Sport. Elite Tekken competitors.",
+  title: "Zenith E-Sport | Équipe Tekken",
+  description: "La vitrine officielle de Zenith E-Sport. Compétiteurs d'élite Tekken.",
   icons: {
     icon: "/zenith/logo.jpg",
     apple: "/zenith/logo.jpg",
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body
         className={`${outfit.variable} antialiased bg-slate-950 text-white selection:bg-violet-500 selection:text-white`}
       >

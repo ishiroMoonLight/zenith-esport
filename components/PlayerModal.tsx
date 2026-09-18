@@ -109,13 +109,13 @@ export default function PlayerModal({ isOpen, onClose, player }: PlayerModalProp
 
                             <div className="flex items-center gap-2 mb-8 bg-white/5 w-fit px-4 py-2 rounded-lg border border-white/10">
                                 <Trophy className="text-yellow-500" size={20} />
-                                <span className="text-slate-200 font-medium">{player.rank || "Zenith Athlete"}</span>
+                                <span className="text-slate-200 font-medium">{player.rank || "Athlète Zenith"}</span>
                             </div>
 
                             <div className="space-y-6">
                                 {hasMains && (
                                     <div>
-                                        <h3 className="text-white/60 text-sm uppercase tracking-wider font-bold mb-3">Mains</h3>
+                                        <h3 className="text-white/60 text-sm uppercase tracking-wider font-bold mb-3">Personnages principaux</h3>
                                         <div className="flex gap-4 flex-wrap">
                                             {player.mains!.map((main, idx) => (
                                                 <div key={idx} className="flex flex-col items-center">
@@ -141,7 +141,7 @@ export default function PlayerModal({ isOpen, onClose, player }: PlayerModalProp
 
                                 {hasSocials && (
                                     <div>
-                                        <h3 className="text-white/60 text-sm uppercase tracking-wider font-bold mb-3">Follow</h3>
+                                        <h3 className="text-white/60 text-sm uppercase tracking-wider font-bold mb-3">Réseaux sociaux</h3>
                                         <div className="flex gap-4">
                                             {player.socials?.twitter && (
                                                 <a href={player.socials.twitter} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg text-gray-400 hover:text-white hover:bg-[#1DA1F2] transition-all hover:scale-110">

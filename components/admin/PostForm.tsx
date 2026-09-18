@@ -101,10 +101,10 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
                         className="flex items-center text-sm text-slate-400 hover:text-white transition-colors"
                     >
                         <ArrowLeft className="mr-1 h-4 w-4" />
-                        Back to Dashboard
+                        Retour au tableau de bord
                     </Link>
                     <h1 className="text-2xl font-bold text-white">
-                        {isEditing ? "Edit Post" : "Create New Post"}
+                        {isEditing ? "Modifier l'article" : "Créer un nouvel article"}
                     </h1>
                 </div>
                 <button
@@ -113,7 +113,7 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
                     className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-violet-300 disabled:opacity-50"
                 >
                     {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                    Save Post
+                    Enregistrer l&apos;article
                 </button>
             </div>
 
@@ -129,7 +129,7 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
                     {/* Titre */}
                     <div className="space-y-2">
                         <label htmlFor="titre" className="block text-sm font-medium text-slate-300">
-                            Post Title
+                            Titre de l&apos;article
                         </label>
                         <input
                             type="text"
@@ -139,14 +139,14 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
                             value={formData.titre}
                             onChange={handleChange}
                             className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                            placeholder="Enter post title"
+                            placeholder="Entrez le titre de l'article"
                         />
                     </div>
 
                     {/* Description */}
                     <div className="space-y-2">
                         <label htmlFor="description" className="block text-sm font-medium text-slate-300">
-                            Excerpt (Short Description)
+                            Extrait (Courte description)
                         </label>
                         <textarea
                             id="description"
@@ -156,7 +156,7 @@ export function PostForm({ initialData, postId, isEditing = false }: PostFormPro
                             value={formData.description}
                             onChange={handleChange}
                             className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                            placeholder="Brief summary used in cards..."
+                            placeholder="Court résumé affiché dans les cartes..."
                         />
                     </div>
 

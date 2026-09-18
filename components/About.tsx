@@ -15,32 +15,32 @@ export default function About() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <span className="text-violet-500 font-bold tracking-widest uppercase mb-2 block">Our Mission</span>
+                        <span className="text-violet-500 font-bold tracking-widest uppercase mb-2 block">Notre Mission</span>
                         <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
-                            Redefining the <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500">Competitive Metal</span>
+                            Redéfinir le <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500">Compétitif</span>
                         </h2>
                         <p className="text-gray-400 text-lg mb-6 leading-relaxed">
-                            Zenith E-Sport was founded on a simple principle: perfection in execution. We are a collective of elite Tekken players dedicated to pushing the boundaries of what's possible in the Iron Fist Tournament.
+                            Zenith E-Sport a été fondée sur un principe simple : la perfection dans l&apos;exécution. Nous sommes un collectif de joueurs Tekken d&apos;élite dédiés à repousser les limites de ce qui est possible.
                         </p>
                         <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                            From local brackets to the world stage, our team embodies discipline, strategy, and the relentless will to win. We don't just play the game; we study it, break it, and master it.
+                            Des brackets locaux à la scène mondiale, notre équipe incarne la discipline, la stratégie et la volonté inébranlable de vaincre. Nous ne jouons pas simplement ; nous étudions, décortiquons et maîtrisons le jeu.
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                             <div className="bg-black/20 p-4 rounded-lg border border-violet-500/20">
                                 <Trophy className="text-violet-500 mb-2" size={32} />
-                                <h4 className="font-bold text-white mb-1">Elite Talent</h4>
-                                <p className="text-sm text-gray-500">Top ranked competitors globally.</p>
+                                <h4 className="font-bold text-white mb-1">Talent d&apos;Élite</h4>
+                                <p className="text-sm text-gray-500">Compétiteurs motivés.</p>
                             </div>
                             <div className="bg-black/20 p-4 rounded-lg border border-violet-500/20">
                                 <Target className="text-violet-500 mb-2" size={32} />
-                                <h4 className="font-bold text-white mb-1">Precision</h4>
-                                <p className="text-sm text-gray-500">Frame-perfect execution.</p>
+                                <h4 className="font-bold text-white mb-1">Précision</h4>
+                                <p className="text-sm text-gray-500">Exécution au frame près.</p>
                             </div>
                             <div className="bg-black/20 p-4 rounded-lg border border-violet-500/20">
                                 <Zap className="text-violet-500 mb-2" size={32} />
-                                <h4 className="font-bold text-white mb-1">Community</h4>
-                                <p className="text-sm text-gray-500">Inspiring the next generation.</p>
+                                <h4 className="font-bold text-white mb-1">Communauté</h4>
+                                <p className="text-sm text-gray-500">Inspirer la prochaine génération.</p>
                             </div>
                         </div>
                     </motion.div>
@@ -57,13 +57,13 @@ export default function About() {
                         <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                                src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2671&auto=format&fit=crop"
+                                src="/zenith/kazuya-mishima-jin-3840x2160-14779.jpeg"
                                 alt="Esports Arena"
                                 className="w-full h-auto object-cover opacity-80"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                             <div className="absolute bottom-6 left-6">
-                                <h3 className="text-2xl font-bold text-white">Join the Legacy</h3>
+                                <h3 className="text-2xl font-bold text-white">Rejoins l&apos;Héritage</h3>
                                 <p className="text-violet-300">#ZenithRising</p>
                             </div>
                         </div>

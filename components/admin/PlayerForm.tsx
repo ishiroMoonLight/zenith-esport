@@ -82,10 +82,10 @@ export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerF
                         className="flex items-center text-sm text-slate-400 hover:text-white transition-colors"
                     >
                         <ArrowLeft className="mr-1 h-4 w-4" />
-                        Back to Players
+                        Retour aux joueurs
                     </Link>
                     <h1 className="text-2xl font-bold text-white">
-                        {isEditing ? "Edit Player" : "Add New Player"}
+                        {isEditing ? "Modifier le joueur" : "Ajouter un joueur"}
                     </h1>
                 </div>
                 <button
@@ -94,7 +94,7 @@ export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerF
                     className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-violet-300 disabled:opacity-50"
                 >
                     {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                    Save Player
+                    Enregistrer le joueur
                 </button>
             </div>
 
@@ -109,7 +109,7 @@ export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerF
                 <div className="lg:col-span-2 space-y-6">
                     {/* Basic Info */}
                     <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-6 space-y-6">
-                        <h3 className="text-lg font-semibold text-white mb-4">Player Details</h3>
+                        <h3 className="text-lg font-semibold text-white mb-4">Détails du joueur</h3>
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div className="space-y-2">
                                 <label htmlFor="pseudo" className="block text-sm font-medium text-slate-300">
@@ -123,12 +123,12 @@ export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerF
                                     value={formData.pseudo}
                                     onChange={handleChange}
                                     className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                    placeholder="e.g. Ishiro"
+                                    placeholder="ex. Ishiro"
                                 />
                             </div>
                             <div className="space-y-2">
                                 <label htmlFor="prenom" className="block text-sm font-medium text-slate-300">
-                                    First Name
+                                    Prénom
                                 </label>
                                 <input
                                     type="text"
@@ -138,12 +138,12 @@ export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerF
                                     value={formData.prenom}
                                     onChange={handleChange}
                                     className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                    placeholder="John"
+                                    placeholder="Jean"
                                 />
                             </div>
                             <div className="space-y-2">
                                 <label htmlFor="nom" className="block text-sm font-medium text-slate-300">
-                                    Last Name
+                                    Nom
                                 </label>
                                 <input
                                     type="text"
@@ -153,7 +153,7 @@ export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerF
                                     value={formData.nom}
                                     onChange={handleChange}
                                     className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-white placeholder-slate-500 focus:border-violet-500 focus:ring-violet-500"
-                                    placeholder="Doe"
+                                    placeholder="Dupont"
                                 />
                             </div>
                         </div>
@@ -164,7 +164,7 @@ export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerF
                 <div className="space-y-6">
                     {/* Player Photo */}
                     <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-4 space-y-4">
-                        <h3 className="font-semibold text-white">Player Photo</h3>
+                        <h3 className="font-semibold text-white">Photo du joueur</h3>
                         
                         {existingImageUrl && !newImage && (
                             <div className="space-y-2 mb-4">
@@ -179,7 +179,7 @@ export function PlayerForm({ initialData, playerId, isEditing = false }: PlayerF
                         <ImageUpload
                             value={newImage}
                             onChange={handleImageChange}
-                            label={existingImageUrl ? "Remplacer l'image" : "Profile Picture"}
+                            label={existingImageUrl ? "Remplacer l'image" : "Photo de profil"}
                         />
                     </div>
                 </div>

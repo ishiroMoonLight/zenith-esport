@@ -10,7 +10,7 @@ interface ImageUploadProps {
     label?: string;
 }
 
-export function ImageUpload({ value, onChange, label = "Upload Image" }: ImageUploadProps) {
+export function ImageUpload({ value, onChange, label = "Téléverser une image" }: ImageUploadProps) {
     const [preview, setPreview] = useState<string | null>(null);
 
     // Initialize preview from value if it's a string (URL) or File
@@ -71,7 +71,7 @@ export function ImageUpload({ value, onChange, label = "Upload Image" }: ImageUp
                             className="h-full w-full object-cover absolute inset-0"
                         />
                         <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity hover:opacity-100 z-10">
-                            <p className="text-white font-medium">Click or Drop to change</p>
+                            <p className="text-white font-medium">Cliquez ou glissez pour modifier</p>
                         </div>
                         <button
                             type="button"
@@ -87,9 +87,9 @@ export function ImageUpload({ value, onChange, label = "Upload Image" }: ImageUp
                             <UploadCloud className={`h-8 w-8 ${isDragActive ? "text-violet-400" : "text-slate-400"}`} />
                         </div>
                         <p className="mb-2 text-sm font-semibold text-white">
-                            {isDragActive ? "Drop it here!" : "Click or drag image to upload"}
+                            {isDragActive ? "Déposez ici !" : "Cliquez ou glissez une image"}
                         </p>
-                        <p className="text-xs text-slate-500">SVG, PNG, JPG or WEBP (max. 5MB)</p>
+                        <p className="text-xs text-slate-500">SVG, PNG, JPG ou WEBP (max. 5 Mo)</p>
                     </div>
                 )}
             </div>

@@ -41,7 +41,7 @@ export default function Roster() {
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-black text-white italic tracking-tighter uppercase mb-4">
-                        Active <span className="text-violet-500">Roster</span>
+                        Roster <span className="text-violet-500">Actif</span>
                     </h2>
                     <div className="w-24 h-1 bg-violet-600 mx-auto rounded-full"></div>
                 </motion.div>
