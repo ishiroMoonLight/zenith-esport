@@ -29,22 +29,22 @@ export default function AdminLoginPageView() {
                         <Lock className="h-8 w-8 text-violet-500" />
                     </div>
                     <h2 className="text-2xl font-bold tracking-tight text-white">
-                        Admin Access
+                        Accès Administration
                     </h2>
                     <p className="mt-2 text-sm text-slate-400">
-                        Enter your password to access the backoffice.
+                        Entrez votre mot de passe pour accéder au panneau d&apos;administration.
                     </p>
                 </div>
 
                 <form action={handleSubmit} className="mt-8 space-y-6">
                     <div className="space-y-2">
-                        <label htmlFor="password" className="sr-only">Password</label>
+                        <label htmlFor="password" className="sr-only">Mot de passe</label>
                         <input
                             id="password"
                             name="password"
                             type="password"
                             required
-                            placeholder="Password"
+                            placeholder="Mot de passe"
                             className="block w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
                         />
                     </div>
@@ -60,7 +60,7 @@ export default function AdminLoginPageView() {
                         disabled={isPending}
                         className="flex w-full justify-center rounded-lg bg-violet-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {isPending ? "Authenticating..." : "Sign in"}
+                        {isPending ? "Connexion en cours..." : "Se connecter"}
                     </button>
                 </form>
 

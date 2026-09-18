@@ -18,24 +18,24 @@ export default function Hero() {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <span className="inline-block py-1 px-3 rounded-full bg-violet-500/20 border border-violet-500/50 text-violet-300 text-sm font-medium tracking-widest mb-6 uppercase backdrop-blur-sm">
-                        Next Gen Fighting
+                        Combat de Nouvelle Génération
                     </span>
                     <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-violet-300 tracking-tighter drop-shadow-[0_0_25px_rgba(139,92,246,0.3)] mb-6">
                         ZENITH <br /> <span className="text-stroke-violet text-white/10">E-SPORT</span>
                     </h1>
 
                     <p className="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-                        Rise to the challenge. Dominate the arena. <br />
-                        The elite Tekken collective redefining competitive gaming.
+                        Relève le défi. Domine l&apos;arène. <br />
+                        Le collectif Tekken d&apos;élite qui redéfinit le jeu compétitif.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         <a href="#roster" className="px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(124,58,237,0.5)] flex items-center gap-2 group">
-                            Meet the Roster
+                            Voir le Roster
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
                         </a>
                         <a href="#blog" className="px-8 py-4 bg-transparent border border-white/20 hover:bg-white/10 text-white font-medium rounded-full transition-all duration-300 backdrop-blur-sm">
-                            Latest News
+                            Dernières Actualités
                         </a>
                     </div>
                 </motion.div>

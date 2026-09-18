@@ -34,10 +34,10 @@ export default function BlogPageView() {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 uppercase tracking-wider font-sans">
-              News & <span className="text-violet-500">Updates</span>
+              Actualités & <span className="text-violet-500">Mises à jour</span>
             </h1>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              All the latest stories from the Zenith E-Sport universe.
+              Toutes les dernières histoires et actualités de l&apos;univers Zenith E-Sport.
             </p>
           </motion.div>
 
@@ -110,7 +110,7 @@ export default function BlogPageView() {
                         {post.excerpt}
                       </p>
                       <div className="flex items-center text-violet-400 text-sm font-medium group-hover:text-violet-300 transition-colors">
-                        Read More <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                        Lire la suite <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </Link>

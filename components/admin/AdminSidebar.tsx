@@ -8,8 +8,8 @@ export function AdminSidebar() {
     const pathname = usePathname();
 
     const links = [
-        { href: "/admin", label: "Blogs", icon: FileText },
-        { href: "/admin/players", label: "Players", icon: User },
+        { href: "/admin", label: "Articles", icon: FileText },
+        { href: "/admin/players", label: "Joueurs", icon: User },
     ];
 
     return (
@@ -49,14 +49,14 @@ export function AdminSidebar() {
                         className="flex items-center rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white group transition-colors mb-2"
                     >
                         <Home className="h-5 w-5 text-slate-500 transition duration-75 group-hover:text-white" />
-                        <span className="ms-3">View Site</span>
+                        <span className="ms-3">Voir le site</span>
                     </Link>
                     <Link
                         href="/"
                         className="flex items-center rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white group transition-colors"
                     >
                         <LogOut className="h-5 w-5 text-slate-500 transition duration-75 group-hover:text-white" />
-                        <span className="ms-3">Sign Out</span>
+                        <span className="ms-3">Déconnexion</span>
                     </Link>
                 </div>
             </div>

@@ -28,10 +28,10 @@ export default function BlogSection() {
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 uppercase tracking-wider font-sans">
-                        Latest <span className="text-violet-500">News</span>
+                        Dernières <span className="text-violet-500">Actualités</span>
                     </h2>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                        Stay updated with the latest tournaments, roster changes, and exclusive team content.
+                        Restez informés des derniers tournois, changements de roster et contenus exclusifs de l&apos;équipe.
                     </p>
                 </motion.div>
 
@@ -94,7 +94,7 @@ export default function BlogSection() {
                                         {post.excerpt}
                                     </p>
                                     <div className="flex items-center text-violet-400 text-sm font-medium group-hover:text-violet-300 transition-colors">
-                                        Read More <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                                        Lire la suite <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
                                     </div>
                                 </div>
                             </Link>
@@ -112,7 +112,7 @@ export default function BlogSection() {
                         href="/blog"
                         className="inline-flex items-center justify-center px-8 py-3 text-base font-bold text-white uppercase tracking-wider bg-transparent border-2 border-violet-600 rounded-lg hover:bg-violet-600 transition-all duration-300 shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_25px_rgba(124,58,237,0.5)]"
                     >
-                        View All News
+                        Voir toutes les actualités
                     </Link>
                 </motion.div>
             </div>

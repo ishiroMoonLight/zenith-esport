@@ -32,15 +32,15 @@ export default function PlayersDashboardPageView() {
         <div className="space-y-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">Roster Management</h1>
-                    <p className="text-slate-400">Manage your players and their profiles.</p>
+                    <h1 className="text-3xl font-bold text-white">Gestion du Roster</h1>
+                    <p className="text-slate-400">Gérez vos joueurs et leurs profils.</p>
                 </div>
                 <Link
                     href="/admin/players/create"
                     className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-violet-300"
                 >
                     <Plus className="mr-2 h-4 w-4" />
-                    Add Player
+                    Ajouter un joueur
                 </Link>
             </div>
 
@@ -60,7 +60,7 @@ export default function PlayersDashboardPageView() {
                             <tr>
                                 <th scope="col" className="px-6 py-3">Avatar</th>
                                 <th scope="col" className="px-6 py-3">Gamertag</th>
-                                <th scope="col" className="px-6 py-3">Real Name</th>
+                                <th scope="col" className="px-6 py-3">Nom réel</th>
                                 <th scope="col" className="px-6 py-3">Pseudo</th>
                                 <th scope="col" className="px-6 py-3 text-right">Actions</th>
                             </tr>
@@ -102,7 +102,7 @@ export default function PlayersDashboardPageView() {
                                                 className="rounded p-2 text-blue-500 hover:bg-blue-500/10"
                                             >
                                                 <Edit2 className="h-4 w-4" />
-                                                <span className="sr-only">Edit</span>
+                                                <span className="sr-only">Modifier</span>
                                             </Link>
                                             <button
                                                 onClick={() => handleDelete(player.id, player.gamertag)}
@@ -113,7 +113,7 @@ export default function PlayersDashboardPageView() {
                                                     ? <Loader2 className="h-4 w-4 animate-spin" />
                                                     : <Trash2 className="h-4 w-4" />
                                                 }
-                                                <span className="sr-only">Delete</span>
+                                                <span className="sr-only">Supprimer</span>
                                             </button>
                                         </div>
                                     </td>
@@ -122,7 +122,7 @@ export default function PlayersDashboardPageView() {
                             {players.length === 0 && (
                                 <tr className="border-b border-slate-800 bg-slate-950">
                                     <td colSpan={5} className="px-6 py-8 text-center text-slate-500">
-                                        No players found. Add your first one!
+                                        Aucun joueur trouvé. Ajoutez votre premier joueur !
                                     </td>
                                 </tr>
                             )}

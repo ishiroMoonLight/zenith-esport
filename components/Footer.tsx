@@ -1,6 +1,6 @@
 "use client";
 
-import { Twitter, Twitch, Youtube, Instagram } from "lucide-react";
+import { Twitter, Twitch, Youtube, Instagram, Facebook } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -26,32 +26,17 @@ export default function Footer() {
 
                     {/* Links */}
                     <div className="flex gap-8 text-sm font-medium">
-                        <Link href="/" className="hover:text-violet-400 transition-colors">Home</Link>
-                        <Link href="/#team" className="hover:text-violet-400 transition-colors">Team</Link>
+                        <Link href="/" className="hover:text-violet-400 transition-colors">Accueil</Link>
+                        <Link href="/roster" className="hover:text-violet-400 transition-colors">Roster</Link>
+                        <Link href="/about" className="hover:text-violet-400 transition-colors">À propos</Link>
                         <Link href="/blog" className="hover:text-violet-400 transition-colors">Blog</Link>
-                        <Link href="/#about" className="hover:text-violet-400 transition-colors">About</Link>
-                        <Link href="/#contact" className="hover:text-violet-400 transition-colors">Contact</Link>
                     </div>
 
-                    {/* Socials */}
-                    <div className="flex gap-4">
-                        <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-violet-600 hover:text-white transition-all duration-300">
-                            <Twitter size={18} />
-                        </a>
-                        <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-violet-600 hover:text-white transition-all duration-300">
-                            <Twitch size={18} />
-                        </a>
-                        <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-violet-600 hover:text-white transition-all duration-300">
-                            <Youtube size={18} />
-                        </a>
-                        <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-violet-600 hover:text-white transition-all duration-300">
-                            <Instagram size={18} />
-                        </a>
-                    </div>
+
                 </div>
 
                 <div className="mt-8 text-center text-xs text-gray-600">
-                    &copy; {new Date().getFullYear()} Zenith E-Sport. All rights reserved. designed by DeepMind.
+                    &copy; {new Date().getFullYear()} Zenith E-Sport. Tous droits réservés.
                 </div>
             </div>
         </footer>
