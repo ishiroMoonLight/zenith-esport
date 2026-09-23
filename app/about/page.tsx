@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
+import { Zap, Handshake, Target } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -143,34 +144,47 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: "⚡",
+                icon: Zap,
+                iconColor: "text-amber-400",
+                iconBg: "bg-amber-500/10 border-amber-500/20 group-hover:border-amber-500/50 group-hover:bg-amber-500/20 group-hover:shadow-[0_0_20px_rgba(251,191,36,0.2)]",
                 title: "Excellence",
                 desc: "Nous ne nous contentons pas de participer. Chaque session d'entraînement, chaque match, chaque analyse est orientée vers un seul objectif : être les meilleurs.",
               },
               {
-                icon: "🤝",
+                icon: Handshake,
+                iconColor: "text-violet-400",
+                iconBg: "bg-violet-500/10 border-violet-500/20 group-hover:border-violet-500/50 group-hover:bg-violet-500/20 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.2)]",
                 title: "Cohésion",
                 desc: "L'équipe avant tout. La force de Zenith réside dans la synergie entre ses membres — des personnalités différentes, un seul état d'esprit.",
               },
               {
-                icon: "🎯",
+                icon: Target,
+                iconColor: "text-fuchsia-400",
+                iconBg: "bg-fuchsia-500/10 border-fuchsia-500/20 group-hover:border-fuchsia-500/50 group-hover:bg-fuchsia-500/20 group-hover:shadow-[0_0_20px_rgba(217,70,239,0.2)]",
                 title: "Rigueur",
                 desc: "La victoire se prépare avant le tournoi. Analyse des adversaires, perfectionnement des combos, mental d'acier — rien n'est laissé au hasard.",
               },
-            ].map((value) => (
-              <div
-                key={value.title}
-                className="group bg-[#0f172a] rounded-2xl p-8 border border-white/5 hover:border-violet-500/40 transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="text-5xl mb-5">{value.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-violet-300 transition-colors">
-                  {value.title}
-                </h3>
-                <p className="text-gray-400 leading-relaxed text-sm">
-                  {value.desc}
-                </p>
-              </div>
-            ))}
+            ].map((value) => {
+              const Icon = value.icon;
+              return (
+                <div
+                  key={value.title}
+                  className="group bg-[#0f172a] rounded-2xl p-8 border border-white/5 hover:border-violet-500/40 transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div
+                    className={`w-14 h-14 rounded-2xl flex items-center justify-center border ${value.iconBg} ${value.iconColor} mb-6 transition-all duration-300 group-hover:scale-110`}
+                  >
+                    <Icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-violet-300 transition-colors">
+                    {value.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed text-sm">
+                    {value.desc}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

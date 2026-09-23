@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const navItems = [
     { name: "Accueil", href: "/" },
@@ -15,6 +16,12 @@ const navItems = [
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
+
+    const isItemActive = (href: string) => {
+        if (href === "/") return pathname === "/";
+        return pathname === href || pathname.startsWith(`${href}/`);
+    };
 
     return (
         <nav className="fixed w-full z-50 top-0 start-0 border-b border-white/10 bg-black/50 backdrop-blur-md">
@@ -50,17 +57,31 @@ export default function Navbar() {
                             }`}
                     >
                         <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-white/10 rounded-lg bg-black/80 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
-                            {navItems.map((item) => (
-                                <li key={item.name}>
-                                    <Link
-                                        href={item.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className="block py-2 px-3 text-gray-300 rounded hover:bg-white/10 md:hover:bg-transparent md:hover:text-violet-400 md:p-0 transition-colors duration-300"
-                                    >
-                                        {item.name}
-                                    </Link>
-                                </li>
-                            ))}
+                            {navItems.map((item) => {
+                                const active = isItemActive(item.href);
+                                return (
+                                    <li key={item.name} className="relative">
+                                        <Link
+                                            href={item.href}
+                                            onClick={() => setIsOpen(false)}
+                                            className={`relative block py-2 px-3 rounded-lg md:rounded-none md:p-0 transition-colors duration-300 ${
+                                                active
+                                                    ? "text-white bg-violet-600/20 border-l-2 border-violet-500 md:border-0 md:bg-transparent md:text-violet-400 font-semibold"
+                                                    : "text-gray-300 hover:bg-white/10 md:hover:bg-transparent md:hover:text-violet-300"
+                                            }`}
+                                        >
+                                            {item.name}
+                                            {active && (
+                                                <motion.div
+                                                    layoutId="navbar-active-indicator"
+                                                    className="hidden md:block absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full shadow-[0_0_10px_rgba(139,92,246,0.9)]"
+                                                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                                />
+                                            )}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 </div>
