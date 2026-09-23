@@ -4,9 +4,18 @@ import About from "@/components/About";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "À propos | Zenith E-Sport",
+  title: "À propos",
   description:
-    "Découvrez l'histoire, la mission et les valeurs de Zenith E-Sport — une équipe d'élite Tekken déterminée à redéfinir la scène compétitive.",
+    "Découvrez l'histoire, la mission et les valeurs de Zenith E-Sport — une équipe d'élite Tekken déterminée à redéfinir la scène compétitive à Madagascar.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "À propos | Zenith E-Sport",
+    description:
+      "Découvrez l'histoire, la mission et les valeurs de Zenith E-Sport — une équipe d'élite Tekken déterminée à redéfinir la scène compétitive.",
+    url: "/about",
+  },
 };
 
 const social_medias = [
