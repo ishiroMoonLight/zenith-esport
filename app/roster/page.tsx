@@ -4,9 +4,18 @@ import Roster from "@/components/Roster";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Roster | Zenith E-Sport",
+  title: "Roster des Joueurs",
   description:
-    "Découvrez les joueurs de l'équipe Zenith E-Sport — des compétiteurs d'élite Tekken dédiés à repousser les limites du jeu.",
+    "Découvrez les joueurs et compétiteurs d'élite de l'équipe Zenith E-Sport sur Tekken 8 à Madagascar. Roster complet, mains et palmarès.",
+  alternates: {
+    canonical: "/roster",
+  },
+  openGraph: {
+    title: "Roster des Joueurs | Zenith E-Sport",
+    description:
+      "Découvrez les joueurs d'élite de l'équipe Zenith E-Sport sur Tekken 8.",
+    url: "/roster",
+  },
 };
 
 export default function RosterPage() {
