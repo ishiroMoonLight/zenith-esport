@@ -21,6 +21,8 @@ interface ApiSingleResponse<T> {
 /**
  * Implémentation HTTP concrète du repository Blog.
  * Cette classe est la seule qui connaît le backend Express/TSOA.
+ * Les requêtes GET sont publiques ; les requêtes de mutation (POST/PUT/DELETE)
+ * injectent automatiquement le token admin grâce à HttpClient.
  */
 export class HttpBlogRepository implements IBlogRepository {
   private readonly client: HttpClient;

@@ -8,14 +8,14 @@ export function middleware(request: NextRequest) {
         // Ignore the login page itself
         if (request.nextUrl.pathname === "/admin/login") {
             // If already logged in, redirect to dashboard
-            if (request.cookies.has("admin_session")) {
+            if (request.cookies.has("admin_token")) {
                 return NextResponse.redirect(new URL("/admin", request.url));
             }
             return NextResponse.next();
         }
 
-        // Check for auth cookie
-        const authCookie = request.cookies.get("admin_session");
+        // Check for auth cookie (JWT)
+        const authCookie = request.cookies.get("admin_token");
 
         if (!authCookie) {
             // Redirect to login if not authenticated
