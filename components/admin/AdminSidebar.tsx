@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, LayoutDashboard, FileText, PlusCircle, Settings, LogOut, User } from "lucide-react";
+import { logout } from "@/app/actions/auth";
 
 export function AdminSidebar() {
     const pathname = usePathname();
@@ -51,13 +52,20 @@ export function AdminSidebar() {
                         <Home className="h-5 w-5 text-slate-500 transition duration-75 group-hover:text-white" />
                         <span className="ms-3">Voir le site</span>
                     </Link>
-                    <Link
-                        href="/"
-                        className="flex items-center rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white group transition-colors"
+                    <button
+                        type="button"
+                        onClick={async () => {
+                            try {
+                                localStorage.removeItem("admin_token");
+                                localStorage.removeItem("token");
+                            } catch {}
+                            await logout();
+                        }}
+                        className="flex w-full items-center rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white group transition-colors text-left"
                     >
                         <LogOut className="h-5 w-5 text-slate-500 transition duration-75 group-hover:text-white" />
                         <span className="ms-3">Déconnexion</span>
-                    </Link>
+                    </button>
                 </div>
             </div>
         </aside>
