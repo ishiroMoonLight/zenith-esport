@@ -3,9 +3,54 @@ import { ApiError } from "./ApiError";
 /**
  * Client HTTP centralisé pour communiquer avec le backend Zenith Esport.
  * Gère les requêtes JSON et multipart/form-data (upload de fichiers).
+ * Supporte l'injection d'un token JWT Bearer pour les routes protégées.
  */
 export class HttpClient {
-  constructor(private readonly baseUrl: string = "") {}
+  constructor(
+    private readonly baseUrl: string = "",
+    private token?: string
+  ) {}
+
+  /**
+   * Construit un HttpClient avec un token prédéfini.
+   */
+  static withToken(token: string, baseUrl = ""): HttpClient {
+    return new HttpClient(baseUrl, token);
+  }
+
+  /**
+   * Définit dynamiquement le token JWT.
+   */
+  setToken(token: string) {
+    this.token = token;
+  }
+
+  /**
+   * Récupère le token JWT côté client depuis le localStorage.
+   */
+  private getAuthToken(): string | null {
+    if (this.token) return this.token;
+    if (typeof window !== "undefined") {
+      try {
+        const local = localStorage.getItem("admin_token") || localStorage.getItem("token");
+        if (local) return local;
+      } catch {}
+      return null;
+    }
+    return null;
+  }
+
+  /**
+   * Retourne les headers d'authentification si un token est disponible.
+   * Lève une erreur 401 si le token est manquant pour une action sécurisée.
+   */
+  private authHeaders(): Record<string, string> {
+    const token = this.getAuthToken();
+    if (!token) {
+      throw new ApiError(401, "Token d'authentification manquant. Veuillez vous reconnecter.");
+    }
+    return { Authorization: `Bearer ${token}` };
+  }
 
   /**
    * Effectue une requête HTTP et retourne la réponse parsée.
@@ -56,7 +101,10 @@ export class HttpClient {
   async post<T>(path: string, data: unknown): Promise<T> {
     return this.request<T>(`${this.baseUrl}${path}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...this.authHeaders(),
+      },
       body: JSON.stringify(data),
     });
   }
@@ -68,6 +116,7 @@ export class HttpClient {
   async postFormData<T>(path: string, formData: FormData): Promise<T> {
     return this.request<T>(`${this.baseUrl}${path}`, {
       method: "POST",
+      headers: { ...this.authHeaders() },
       body: formData,
     });
   }
@@ -78,7 +127,10 @@ export class HttpClient {
   async put<T>(path: string, data: unknown): Promise<T> {
     return this.request<T>(`${this.baseUrl}${path}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...this.authHeaders(),
+      },
       body: JSON.stringify(data),
     });
   }
@@ -89,6 +141,7 @@ export class HttpClient {
   async putFormData<T>(path: string, formData: FormData): Promise<T> {
     return this.request<T>(`${this.baseUrl}${path}`, {
       method: "PUT",
+      headers: { ...this.authHeaders() },
       body: formData,
     });
   }
@@ -99,7 +152,10 @@ export class HttpClient {
   async delete<T>(path: string): Promise<T> {
     return this.request<T>(`${this.baseUrl}${path}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...this.authHeaders(),
+      },
     });
   }
 }

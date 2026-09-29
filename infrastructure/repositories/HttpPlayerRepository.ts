@@ -17,6 +17,8 @@ interface ApiSingleResponse<T> {
 
 /**
  * Implémentation HTTP concrète du repository Player.
+ * Les requêtes GET sont publiques ; les requêtes de mutation (POST/PUT/DELETE)
+ * injectent automatiquement le token admin grâce à HttpClient.
  */
 export class HttpPlayerRepository implements IPlayerRepository {
   private readonly client: HttpClient;
